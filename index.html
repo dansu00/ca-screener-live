@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CA Screener Live — 0–30s Solana Hunter</title>
+  <meta name="description" content="Live Solana contract screener using recent X posts and market data.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">CA</span><div><b>CA Screener</b><small>Live fresh-contract intelligence</small></div></div>
+  <div class="status"><i id="statusDot" class="status-dot"></i><span id="statusText">Ready</span><span id="modeBadge" class="mode-badge">READY</span></div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">0–30 SECOND HUNTER</p>
+      <h1>Find fresh CAs. See the signal.</h1>
+      <p class="sub">Poll recent X posts, extract Solana-style contract addresses, enrich with DexScreener market data and display transparent X, creator, risk and trend signals.</p>
+      <p class="warning"><b>Important:</b> “mention age” is the age of the X post, not proof that the token was created exactly that many seconds ago.</p>
+    </div>
+    <div class="controls">
+      <button id="scanBtn" class="primary">⚡ Scan now</button>
+      <button id="demoBtn">Load demo</button>
+      <button id="clearBtn">Clear</button>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><span>Fresh mentions</span><strong id="freshCount">0</strong></div>
+    <div class="stat"><span>High signal ≥80</span><strong id="highCount">0</strong></div>
+    <div class="stat"><span>Risk flags ≥30</span><strong id="riskCount">0</strong></div>
+    <div class="stat"><span>Last scan</span><strong id="lastScan">—</strong></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div><h2>Fresh CA feed</h2><span class="muted">Live window: 0–30s • newest first</span></div>
+      <label class="toggle"><input id="auto" type="checkbox"><span></span><em id="autoLabel">Auto scan</em></label>
+    </div>
+    <div id="feed" class="feed empty">Click <b>Scan now</b> to query the live backend.</div>
+  </section>
+
+  <section class="grid">
+    <div class="panel">
+      <div class="panel-head"><h2>Scoring model</h2></div>
+      <div class="bars">
+        <div><span>X account quality</span><b>25%</b><em><i style="width:25%"></i></em></div>
+        <div><span>Creator quality</span><b>25%</b><em><i style="width:25%"></i></em></div>
+        <div><span>Scam-like risk</span><b>25%</b><em><i style="width:25%"></i></em></div>
+        <div><span>Trend potential</span><b>25%</b><em><i style="width:25%"></i></em></div>
+      </div>
+      <p class="note">Signal is a heuristic. Risk is a risk estimate, not a factual accusation or guarantee.</p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2>Take-profit planner</h2></div>
+      <div class="tp">
+        <label>Entry market cap <input id="entry" type="number" value="10000" min="0"></label>
+        <label>Current market cap <input id="current" type="number" value="25000" min="0"></label>
+        <label>Position size <input id="position" type="number" value="50" min="0"></label>
+      </div>
+      <div class="tp-results">
+        <div><span>Multiple</span><strong id="multiple">2.50×</strong></div>
+        <div><span>+ROI</span><strong id="roi">150%</strong></div>
+        <div><span>TP 25%</span><strong id="tp25">$68.75</strong></div>
+        <div><span>TP 50%</span><strong id="tp50">$87.50</strong></div>
+        <div><span>TP 75%</span><strong id="tp75">$106.25</strong></div>
+        <div><span>TP 100%</span><strong id="tp100">$125.00</strong></div>
+      </div>
+      <p class="note">Illustrative ladder only. It does not predict price or guarantee profit.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>Live pipeline</h2></div>
+    <ol class="steps">
+      <li><b>X Recent Search.</b> Query recent public posts containing Solana / pump.fun / CA language.</li>
+      <li><b>0–30s filter.</b> Only posts whose timestamp is inside the requested window are kept.</li>
+      <li><b>CA extraction.</b> Solana-style base58 strings are extracted and deduplicated.</li>
+      <li><b>Market enrichment.</b> DexScreener data is used when a matching Solana pair exists.</li>
+      <li><b>Transparent heuristics.</b> X quality, creator quality, scam-like risk and trend potential are calculated from available data.</li>
+    </ol>
+  </section>
+</main>
+<footer>CA Screener • Research tool • Not financial advice • X/API availability and indexing can affect detection latency</footer>
+<script src="app.js"></script>
+</body>
+</html>
